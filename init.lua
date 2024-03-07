@@ -1,8 +1,21 @@
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.clipboard = {
+  name = 'WslClipboard',
+  copy = {
+    ['+'] = 'clip.exe',
+    ['*'] = 'clip.exe',
+  },
+  paste = {
+    ['+'] = 'powershell.exe -Command Get-Clipboard',
+    ['*'] = 'powershell.exe -Command Get-Clipboard',
+  },
+  cache_enabled = 1,
+}
 -- disable F1 key to prevent accidental
 vim.api.nvim_set_keymap('n', '<F1>', '<Nop>', { noremap = true, silent = true })
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -20,6 +33,7 @@ if not vim.loop.fs_stat(lazypath) then
   }
 end
 vim.opt.rtp:prepend(lazypath)
+
 
 -- [[ Configure plugins ]]
 -- NOTE: Here is where you install your plugins.
@@ -319,7 +333,7 @@ vim.o.mouse = 'a'
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
-
+--
 -- Enable break indent
 vim.o.breakindent = true
 
